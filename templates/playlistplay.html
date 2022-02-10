@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- APlayer CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css"/>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>{{pld[0][1]}} 🎸🎸</title>
+    <style>
+    	body{
+    		background-color: #f7f7f7;
+    		font-family: Poppins,sans-serif;
+    	}
+    	img{
+    		width: 100%;
+    		min-height: 250px;
+    	}
+    	.main{
+    		padding: 40px 0;
+    	}
+    	.col-md-3{
+    		margin-bottom: 40px;
+    	}
+    	.album-poster{
+    		position: relative;
+    		display: block;
+    		border-radius: 7px;
+    		overflow: hidden;
+    		box-shadow: 0 15px 35px #3d2173a1;
+    		transition: all ease 0.4s;
+    	}
+    	.album-poster:hover{
+    		box-shadow: none;
+    		transform: scale(0.98) translateY(5px);
+    	}
+    	h3{
+    		font-size: 34px;
+    		margin-bottom: 34px;
+    		border-bottom: 4px solid #e6e6e6;
+    		padding-bottom: 15px;
+    	}
+    	p{
+    		font-size: 15px;
+    	}
+    	h4{
+    		font-size: 16px;
+    		text-transform: uppercase;
+    		margin-top: 15px;
+    		font-weight: 700;
+    	}
+		
+
+		/*default is hide music player*/
+		#aplayer{
+			position: fixed;
+			bottom: 100;
+			left: 0;
+			width: 100%;
+			margin: 0;
+			box-shadow: 0 -2px 2px #dadada;
+			background-color: #fff;
+			transition: all ease 0.5s;
+		}
+		#aplayer.showPlayer{
+			bottom: 30;
+		}
+
+		
+		/*MUSIC PLAYER CUSTOMIZING STYLE*/
+		span{
+			color: #000 !important;
+			font-size: 16px;
+		}
+		.aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-loaded{
+			background: #e0e0e0;
+    		height: 4px;
+		}
+		.aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-played{
+			height: 4px;
+			background-color: #2196F3 !important;
+		}
+		.aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-played .aplayer-thumb{
+			background-color: #2196F3 !important;
+		}
+
+		.aplayer .aplayer-icon{
+			width: 20px;
+			height: 20px;
+		}
+		.aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
+		    fill: #000;
+		}
+		.aplayer .aplayer-info .aplayer-music{
+			margin-bottom: 5px;
+		}
+
+
+    </style>
+	<!-- <link rel="stylesheet" href="APlayer.min.css"> -->
+
+    {% for i in pls %}
+	 <h1 id="{{i[0]}}" hidden>{{i[2]}}</h1>
+    {% endfor %}
+</head>
+<body>
+	<div id="aplayer"></div>
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+	<!-- Bootstrap Link -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<!-- APlayer Jquery link -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>	
+
+	<script>
+
+		$(document).ready(function () {
+			var dataSwitchId = $(this).attr('data-switch');
+			//console.log(dataSwitchId);
+
+			// and now i use aplayer switch function see
+			ap.list.switch(dataSwitchId); //this is static id but i use dynamic 
+
+			// aplayer play function
+			// when i click any song to play
+			ap.play();
+
+			// click to slideUp player see
+			$("#aplayer").addClass('showPlayer');
+		})
+
+		const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    audio: [
+		{% for i in pls %}
+	{
+        name: '{{i[0]}}',
+        artist: '{{i[1]}}',
+        url: document.getElementById('{{i[0]}}').innerHTML,
+        cover: '{{i[3]}}'
+    },
+	{% endfor %}
+
+]
+});
+	</script>
+
+	
+<!-- <script src="APlayer.min.js"></script> -->
+</body>
+</html>

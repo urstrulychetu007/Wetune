@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- GOOGLE FONTS -->
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+     <!-- OWL CAROUSEL -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+     <!-- BOX ICONS -->
+     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <!-- APP CSS -->
+     <link rel="stylesheet" href="/static//css/grid.css">
+     <link rel="stylesheet" href="/static//css/app.css">
+    <title>{{moviename}}</title>
+    <link rel="short icon" href="{{lists[0][0]}}" />
+</head>
+<body>
+
+
+ 
+    <!-- NAV -->
+    <div class="nav-wrapper">
+        <div class="container">
+            <div class="nav">
+                 <a href="/home:{{user}}" class="logo">
+                    <i class='bx bx-movie-play bx-tada'></i><span class="main-color">WETUNE</span>
+                </a>
+                <ul class="nav-menu" id="nav-menu">
+                    <!-- <li><a href="#">Home</a></li> -->
+                    <!-- <li><a href="#genre">Genre</a></li>
+                    <li><a href="#year">Year</a></li>
+                    <li><a href="#actor">Actor</a></li>
+                    <li><a href="#actress">Actress</a></li> -->
+                    <li>
+                        <a href="/home:{{user}}/{{moviename}}" class="btn btn-hover">
+                            <span >Add to Watch later</span>
+                        </a>
+                        <a href="#tra" class="btn btn-hover">
+                            <span onclick="playtrailer()">Play Trailer</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- MOBILE MENU TOGGLE -->
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <div class="hamburger"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END NAV -->
+  
+    
+    <div class="hero-section">
+        <!-- HERO SLIDE -->
+        <div class="hero-slide">
+            <div class="owl-carousel carousel-nav-center" id="hero-carousel">
+                <!-- SLIDE ITEM -->
+                {% for list in lists %}
+                <div class="hero-slide-item">
+                    <img src="{{list[0]}}" alt="">
+                    <div class="overlay"></div>
+                    <div class="hero-slide-item-content">
+                        <div class="item-content-wraper">
+                            <div class="item-content-title top-down" id="name">
+                                {{moviename}}
+                            </div>
+                            <div class="movie-infos top-down delay-2">
+                                <div class="movie-info">
+                                    <i class="bx bxs-star"></i>
+                                    <span>{{list[5]}}</span>
+                                </div>
+                                <div class="movie-info">
+                                    <i class='bx bx-film'></i>
+                                    <span>{{list[1]}}</span>
+                                </div>
+                                <div class="movie-info">
+                                    <span>HD</span>
+                                </div>
+                                <div class="movie-info">
+                                    <span>{{list[7]}}</span>
+                                </div>
+                            </div>
+                            <div class="item-content-description top-down delay-4" id="slid1">
+                             
+                            </div>
+                            <div class="item-action top-down delay-6">
+                                <a href="{{url_for('playmv',name=moviename)}}" class="btn btn-hover">
+                                    <i class="bx bxs-right-arrow"></i>
+                                    <span>Watch now</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+                <!-- END SLIDE ITEM -->
+              
+            </div>
+        </div>
+        <!-- END HERO SLIDE -->
+        <!-- TOP MOVIES SLIDE -->
+        <br>
+        <div class="section-header">
+            CAST AND CREW
+         </div>
+         <br>
+        <div class="top-movies-slide" id="toplist">
+            <div class="owl-carousel" id="top-movies-slide">
+                <!-- MOVIE ITEM -->
+                {% for tpl in range(length)%}
+                    <a href="">
+                        <div class="movie-item">
+                            <img src="{{images[tpl]}}" alt="">
+                            <div class="movie-item-content">
+                               <div class="movie-item-title">
+                                  {{totalcast[tpl]}}
+                                </div>
+                            </div>
+                           </div>
+                    </a>
+               {%endfor%}
+               
+                 <!-- END MOVIE ITEM -->
+          </div>
+      </div>
+        <!-- END TOP MOVIES SLIDE -->
+    </div>
+
+      <!-- SOngs Section -->
+      <div class="section" on>
+        <div class="container">
+            <div class="section-header">
+                Songs in {{moviename}}
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel">
+                <!-- MOVIE ITEM -->
+                {% for i in song %}
+                <a href="{{url_for('playson',songname=i[0])}}" class="movie-item">
+                  <img src="{{lists[0][0]}}" alt="">
+                  <div class="movie-item-content">
+                      <div class="movie-item-title">
+                          {{i[0]}}
+                      </div>
+                     
+                  </div>
+              </a>
+              {% endfor %}
+                <!-- END MOVIE ITEM -->
+               
+               
+            </div>
+        </div>
+    </div>
+    <!-- END SOngs Section -->
+
+
+ <!-- Related Section -->
+ <div class="section" on>
+    <div class="container">
+        <div class="section-header">
+           Suggestions
+        </div>
+        <div class="movies-slide carousel-nav-center owl-carousel">
+            <!-- MOVIE ITEM -->
+            {% for i in related %}
+            <a href="{{url_for('openmv',user=user,mv=i[0])}}" class="movie-item">
+              <img src="{{i[1]}}" alt="">
+              <div class="movie-item-content">
+                  <div class="movie-item-title">
+                      {{i[0]}}
+                  </div>
+                 
+              </div>
+          </a>
+          {% endfor %}
+            <!-- END MOVIE ITEM -->
+           
+           
+        </div>
+    </div>
+</div>
+<!-- END Related Section -->
+
+
+<section id="tra">
+    <iframe width="1024" height="640"  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="trailer" style="margin-left: 5%; margin-top: 5%;" hidden></iframe>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- OWL CAROUSEL -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+        <!-- APP SCRIPT -->
+        <script src="/static//js/app.js"></script>
+        <script src="./api.js"></script>
+        <script>
+          var name = '{{moviename}}'
+   YOUR_API = '2fdf8e3321c1752c8dbe86f5b67cc501'
+        //MovieDB API
+    const SEARCHAPI= "https://api.themoviedb.org/3/search/movie?api_key=" + YOUR_API + "&query="+name+"&year="+'{{lists[0][1]}}'+"&primary_release_year="+'{{lists[0][1]}}'+"&language=en-IN"
+    url = SEARCHAPI;
+    desc = document.getElementById('slid1');
+
+    // document.ready = function(){
+    //     showMovies(url,desc)
+    // }
+
+    $(document).ready(function(){
+        showMovies(url,desc);
+    })
+    var tid;
+    function getkey(id)
+    {
+        url = "https://api.themoviedb.org/3/movie/"+id +"/videos?api_key=" + YOUR_API 
+        fetch(url).then(res=>res.json()).then(function(data){
+            // console.log(data)
+            tid=data.results[0].key;
+        })
+    }
+    //
+    function playtrailer()
+    {
+        document.getElementById('trailer').setAttribute('src','https://www.youtube.com/embed/'+tid);
+        document.getElementById('trailer').hidden=false
+    }
+    function showMovies(url,slide){
+    fetch(url).then(res=>res.json())
+    .then(function(data){
+        // console.log(data.results[0].id)
+        getkey(data.results[0].id)
+        slide.innerHTML=data.results[0].overview
+    })}
+</script>
+
+</body>
+</html>
+
+<!-- https://r2---sn-ci5gup-8b5s.googlevideo.com/videoplayback?expire=1622389625&ei=GV-zYPzIDtKWvwSVu4qICg&ip=223.185.107.193&id=o-AFYL8K6Ha_GwmglcHxDmOZ-rFI4DlwlmTwMKfGQm14RQ&itag=22&source=youtube&requiressl=yes&mh=JB&mm=31%2C29&mn=sn-ci5gup-8b5s%2Csn-ci5gup-h556&ms=au%2Crdu&mv=m&mvi=2&pl=20&initcwndbps=151250&vprv=1&mime=video%2Fmp4&ns=EV0mkqkR-v-e1F9PFGsEmBUF&cnr=14&ratebypass=yes&dur=896.847&lmt=1599138589536515&mt=1622367649&fvip=2&fexp=24001373%2C24007246&c=WEB_EMBEDDED_PLAYER&txp=6316222&n=h-rRoz27VFoL5eMT&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgfE-LwOH_12ZP4zJUiMtA-L1q_34hqhhqiyLSNHyZlsACIHSdUq1h_K-CjQ1lPVM7oUIvTrQYqGlRiOM8dUykQbTr&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAPtQgyus-31aNw4UJAgWk32-w28YvfskD4YnVz4O56b5AiEA4SKyLAU-Cpop01xEDBY-bnBtxsgNYJEsr026C-6WZW8%3D -->
+<!-- wnseY8goQoc -->

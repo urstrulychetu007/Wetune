@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wetune - Sign up to chill😎😎</title>
+</head>
+<body>
+
+    <form action="/register" method="POST" class="box">
+        <h2>Register</h2>
+        <input  type="email" name="email" placeholder="Email" required>
+        <input type="text" name="username" placeholder="Name" required>
+        <input type="text" name="Mobile" placeholder="Phone Number" required>
+        <input  type="password" name="passw" placeholder="Password" required>
+        <input type="password"  name="confrmpass" placeholder="Confirm Password" required>
+        <input  type="submit" value="Register">
+    </form>
+</body>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600&display=swap');
+body
+{
+    margin: 0;
+    padding: 0;
+    font-family: Poppins,sans-serif;
+    background: url("{{url_for('static',filename='/img/registerbg.png')}}") center center/cover;
+    opacity: 100%;
+    
+}
+.box
+{
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background:black;
+    text-align: center;
+}
+
+.box h2
+{
+    color: white;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.box input[type="email"],input[type="password"],input[type="text"]
+{
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid dodgerblue;
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+
+.box input[type="email"]:focus , input[type="password"]:focus,input[type="text"]:focus
+{
+    width: 280px;
+    border-color: #2ecc71;
+}
+
+.box input[type="submit"]
+{
+    
+    border: 0;
+    background: dodgerblue;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid dodgerblue;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.text
+{
+    font-family: Poppins,sans-serif;
+    font-weight: 600;
+    color: dodgerblue;
+}
+
+
+
+</style>
+</html>

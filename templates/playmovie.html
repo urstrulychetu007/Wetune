@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{moviename}}</title>
+	<link rel="short icon" href="{{image}}" />
+</head>
+<body style="background-color: black;">
+    
+{% if 'https' in murl %}
+<script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+<video id="video-id" src="{{murl}}" hidden>
+<script>
+    var myFP = fluidPlayer(
+        'video-id',	{
+	"layoutControls": {
+		"controlBar": {
+			"autoHideTimeout": 3,
+			"animated": true,
+			"autoHide": true
+		},
+		"htmlOnPauseBlock": {
+			"html": null,
+			"height": null,
+			"width": null
+		},
+		"autoPlay": false,
+		"mute": true,
+		"allowTheatre": true,
+		"playPauseAnimation": true,
+		"playbackRateEnabled": true,
+		"allowDownload": false,
+		"playButtonShowing": true,
+		"fillToContainer": true,
+		"posterImage": "{{image}}"
+	},
+	"vastOptions": {
+		"adList": [],
+		"adCTAText": false,
+		"adCTATextPosition": ""
+	}
+})
+</script>
+{% else %}
+<iframe width="1024" height="640" src="https://www.youtube.com/embed/{{murl}}?modestbranding=1" id="ifr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% endif %}
+   
+</body>
+</html>
+
+<!-- url = "https://www.youtube.com/embed/"+'{{murl}}'+"?modestbranding=1&rel=0&autoplay=1&loop=1" -->

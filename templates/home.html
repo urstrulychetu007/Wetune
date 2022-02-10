@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Wetune - Happiness Starts Here🍿🍿🥤
+    </title>
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+    <!-- BOX ICONS -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- APP CSS -->
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="/static//css/grid.css">
+    <link rel="stylesheet" href="/static//css/app.css">
+
+    <style>
+  ::selection{
+  color: dodgerblue;
+  background: white;
+}
+.search-box{
+  position: relative;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  box-shadow: 5px 5px 30px rgba(0,0,0,.2);
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.search-box.active{
+  width: 350px;
+}
+.search-box input{
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 50px;
+  background: dodgerblue;
+  color: #fff;
+  outline: none;
+  padding: 0 60px 0 20px;
+  font-size: 18px;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.search-box input.active{
+  opacity: 1;
+}
+.search-box input::placeholder{
+  color: #fff;
+}
+.search-box .search-icon{
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60px;
+  width: 60px;
+  background: dodgerblue;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 60px;
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.search-box .search-icon.active{
+  right: 5px;
+  height: 50px;
+  line-height: 50px;
+  width: 50px;
+  font-size: 20px;
+  background: white;
+  color: dodgerblue;
+  transform: translateY(-50%) rotate(360deg);
+}
+.search-box .cancel-icon{
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 25px;
+  color: dodgerblue;
+  cursor: pointer;
+  transition: all 0.5s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.search-box .cancel-icon.active{
+  right: -40px;
+  transform: translateY(-50%) rotate(360deg);
+}
+.search-box .search-data{
+  text-align: center;
+  padding-top: 7px;
+  color: dodgerblue;
+  font-size: 18px;
+  word-wrap: break-word;
+}
+.search-box .search-data.active{
+  display: none;
+}
+    </style>
+    
+
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <div class="nav-wrapper">
+        <div class="container">
+            <div class="nav">
+                 <a href="/home{{user}}" class="logo">
+                    <i class='bx bx-movie-play bx-tada'></i><span class="main-color">WETUNE</span>
+                </a>
+               
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#genre">Genre</a></li>
+                    <li><a href="#year">Year</a></li>
+                    <li><a href="#actor">Actor</a></li>
+                    <li><a href="#actress">Actress</a></li>
+                    <li><a href="{{url_for('playplist',user=user,pname='init')}}">Playlist</a></li>
+                    <li><a href="{{url_for('watchl',user=user)}}">Watch later</a></li>
+                    <li><a href="#" onclick="searchactive()">Search</a></li>
+                    <li><a href="{{url_for('signout',user=user)}}">signout</a></li>
+                    <li>
+                        <a href="#" class="btn btn-hover">
+                            <span>{{user}}</span>
+                        </a>
+                    </li>
+                </ul>
+              
+
+              
+
+                <!-- MOBILE MENU TOGGLE -->
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <div class="hamburger"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END NAV -->
+    <div class="search-box" hidden id="sit">
+        <input type="text" placeholder="Type to search..">
+        <div class="search-icon">
+       <a  id="searchs"> <i class="fas fa-search"></i></a>
+        </div>
+  <div class="cancel-icon">
+         <a > <i class="fas fa-times"></i></a>
+        </div>
+  <div class="search-data">
+  </div>
+  </div>
+    <!-- HERO SECTION -->
+    <div class="hero-section">
+        <!-- HERO SLIDE -->
+        <div class="hero-slide">
+            <div class="owl-carousel carousel-nav-center" id="hero-carousel">
+                <!-- SLIDE ITEM -->
+                {% for list in lists %}
+                <div class="hero-slide-item">
+                    <img src="{{list[1]}}" alt="">
+                    <div class="overlay"></div>
+                    <div class="hero-slide-item-content">
+                        <div class="item-content-wraper">
+                            <div class="item-content-title top-down" id="name">
+                                {{list[0]}}
+                            </div>
+                            <div class="movie-infos top-down delay-2">
+                                <div class="movie-info">
+                                    <i class="bx bxs-star"></i>
+                                    <span>{{list[2]}}</span>
+                                </div>
+                                <div class="movie-info">
+                                    <i class='bx bx-film'></i>
+                                    <span>{{list[3]}}</span>
+                                </div>
+                                <div class="movie-info">
+                                    <span>HD</span>
+                                </div>
+                                <div class="movie-info">
+                                    <span>12+</span>
+                                </div>
+                            </div>
+                            <div class="item-content-description top-down delay-4" id="slid1">
+                              {{list[4]}}
+                            </div>
+                            <div class="item-action top-down delay-6">
+                                <a href="{{url_for('openmv',user=user,mv=list[0])}}" class="btn btn-hover">
+                                    <i class="bx bxs-right-arrow"></i>
+                                    <span>Watch now</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+                <!-- END SLIDE ITEM -->
+              
+            </div>
+        </div>
+        <!-- END HERO SLIDE -->
+        <!-- TOP MOVIES SLIDE -->
+        <br>
+        <div class="top-movies-slide" id="toplist">
+            <div class="owl-carousel" id="top-movies-slide">
+                <!-- MOVIE ITEM -->
+                {% for tpl in top15list%}
+                    <a href="{{url_for('openmv',user=user,mv=tpl[0])}}">
+                        <div class="movie-item">
+                            <img src="{{tpl[1]}}" alt="">
+                            <div class="movie-item-content">
+                               <div class="movie-item-title">
+                                  {{tpl[0]}}
+                                </div>
+                                <div class="movie-infos">
+                                    <div class="movie-info">
+                                        <i class="bx bxs-star"></i>
+                                        <span>{{tpl[2]}}</span>
+                                    </div>
+                                    <div class="movie-info">
+                                        <i class='bx bx-film'></i>
+                                        <span>{{tpl[3]}}</span>
+                                    </div>
+                                    <div class="movie-info">
+                                        <span>HD</span>
+                                    </div>
+                                    <div class="movie-info">
+                                        <span>12+</span>
+                                    </div>
+                                </div>
+                            </div>
+                           </div>
+                    </a>
+               {%endfor%}
+               
+                 <!-- END MOVIE ITEM -->
+          </div>
+      </div>
+        <!-- END TOP MOVIES SLIDE -->
+    </div>
+    <!-- END HERO SECTION -->
+
+    <!-- LATEST MOVIES SECTION -->
+    <div class="section" id="actor" on>
+        <div class="container">
+            <div class="section-header">
+                <a href="{{url_for('cat',user=user,cate='actor')}}">Movies By Actor</a>
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel">
+                <!-- MOVIE ITEM -->
+                {% for i in actormvlist %}
+                <a href="{{url_for('mvbyac',user=user,ac=i[0])}}" class="movie-item">
+                  <img src="{{i[1]}}" alt="">
+                  <div class="movie-item-content">
+                      <div class="movie-item-title">
+                          {{i[0]}}
+                      </div>
+                     
+                  </div>
+              </a>
+              {% endfor %}
+                <!-- END MOVIE ITEM -->
+               
+               
+            </div>
+        </div>
+    </div>
+    <!-- END LATEST MOVIES SECTION -->
+
+
+  
+
+    <!-- 2020 MOVIES SECTION -->
+    <div class="section" id="genre">
+        <div class="container">
+            <div class="section-header">
+                <a href="{{url_for('cat',user=user,cate='Genre')}}"> Movies By Genre </a>
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel">
+                <!-- MOVIE ITEM -->
+                <!-- MOVIE ITEM -->
+                {% for i in range(10) %}
+                <a href="{{url_for('mvbygen',user=user,genre=genrelist[i][0])}}" class="movie-item">
+                  <img src="https://screencraft.org/wp-content/uploads/2018/10/ChooseGenre.jpg" style="object-fit: cover;" alt="">
+                  <div class="movie-item-content">
+                      <div class="movie-item-title">
+                          {{genrelist[i][0]}}
+                      </div>
+                  </div>
+              </a>
+              {% endfor %}
+                
+                <!-- END MOVIE ITEM -->
+            </div>
+        </div>
+    </div>
+    <!-- END 2020 MOVIES SECTION -->
+
+
+    <!-- 2019 MOVIES SECTION -->
+    <div class="section" id="actress">
+      <div class="container">
+          <div class="section-header">
+            <a href="{{url_for('cat',user=user,cate='actress')}}"> Movies By Actress </a>
+          </div>
+          <div class="movies-slide carousel-nav-center owl-carousel">
+              <!-- MOVIE ITEM -->
+              <!-- <a href="{{url_for('openmv',user=user,mv=actressmvlist[11][0])}}" class="movie-item">
+                <img src="{{actressmvlist[11][1]}}" alt="">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        {{actressmvlist[11][0]}}
+                    </div>
+                    <div class="movie-infos">
+                        <div class="movie-info">
+                            <i class="bx bxs-star"></i>
+                            <span>9.5</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bx-film'></i>
+                            <span>Language</span>
+                        </div>
+                        <div class="movie-info">
+                            <span>HD</span>
+                        </div>
+                        <div class="movie-info">
+                            <span>12+</span>
+                        </div>
+                    </div>
+                </div>
+            </a> -->
+              <!-- MOVIE ITEM -->
+              {% for i in actressmvlist %}
+              <a href="{{url_for('mvbyacs',user=user,acs=i[0])}}" class="movie-item">
+                <img src="{{i[1]}}" alt="">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        {{i[0]}}
+                    </div>
+                   
+                </div>
+            </a>
+            {% endfor %}
+              
+              <!-- END MOVIE ITEM -->
+          </div>
+      </div>
+  </div>
+  <!-- END 2019 MOVIES SECTION -->
+
+
+    <!-- MOVIES BY YEAR SECTION -->
+    <div class="section" id="year">
+      <div class="container">
+          <div class="section-header">
+              Movies By Year
+          </div>
+          <div class="movies-slide carousel-nav-center owl-carousel">
+              <!-- MOVIE ITEM -->
+              <a href="{{url_for('mvbyyear',user=user,yor=2017)}}" class="movie-item">
+                  <img src="/static//img/1.png" alt="">
+                  <div class="movie-item-content">
+                      <div class="movie-item-title">
+                          
+                      </div>
+                      <div class="movie-infos">
+                          <div class="movie-info">
+                              <!-- <i class="bx bxs-star"></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <!-- <i class='bx bx-film'></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              <!-- END MOVIE ITEM -->
+              <!-- MOVIE ITEM -->
+              <a href="{{url_for('mvbyyear',user=user,yor=2018)}}" class="movie-item">
+                  <img src="/static//img/2.png" alt="">
+                  <div class="movie-item-content">
+                      <div class="movie-item-title">
+                          
+                      </div>
+                      <div class="movie-infos">
+                          <div class="movie-info">
+                              <!-- <i class="bx bxs-star"></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <!-- <i class='bx bx-film'></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              <!-- END MOVIE ITEM -->
+              <!-- MOVIE ITEM -->
+              <a href="{{url_for('mvbyyear',user=user,yor=2019)}}" class="movie-item">
+                  <img src="/static//img/3.png" alt="">
+                  <div class="movie-item-content">
+                      <div class="movie-item-title">
+                          
+                      </div>
+                      <div class="movie-infos">
+                          <div class="movie-info">
+                              <!-- <i class="bx bxs-star"></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <!-- <i class='bx bx-film'></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              <!-- END MOVIE ITEM -->
+              <!-- MOVIE ITEM -->
+              <a href="{{url_for('mvbyyear',user=user,yor=2020)}}" class="movie-item">
+                  <img src="/static//img/4.png" alt="">
+                  <div class="movie-item-content">
+                      <div class="movie-item-title">
+                          
+                      </div>
+                      <div class="movie-infos">
+                          <div class="movie-info">
+                              <!-- <i class="bx bxs-star"></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <!-- <i class='bx bx-film'></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              <!-- END MOVIE ITEM -->
+              <!-- MOVIE ITEM -->
+              <a href="{{url_for('mvbyyear',user=user,yor=2021)}}" class="movie-item">
+                  <img src="/static//img/5.png" alt="">
+                  <div class="movie-item-content">
+                      <div class="movie-item-title">
+                          
+                      </div>
+                      <div class="movie-infos">
+                          <div class="movie-info">
+                              <!-- <i class="bx bxs-star"></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <!-- <i class='bx bx-film'></i> -->
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                          <div class="movie-info">
+                              <span></span>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              <!-- END MOVIE ITEM -->
+              <!-- MOVIE ITEM -->
+              
+              <!-- END MOVIE ITEM -->
+          </div>
+      </div>
+  </div>
+
+  <!-- END OF MOVIES BY YEAR SECTION -->
+
+    <!-- SPECIAL MOVIE SECTION
+    <div class="section">
+        <div class="hero-slide-item">
+            <img src="/static//images/transformer-banner.jpg" alt="">
+            <div class="overlay"></div>
+            <div class="hero-slide-item-content">
+                <div class="item-content-wraper">
+                    <div class="item-content-title">
+                        Transformer
+                    </div>
+                    <div class="movie-infos">
+                        <div class="movie-info">
+                            <i class="bx bxs-star"></i>
+                            <span>9.5</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bx-film'></i>
+                            <span>Language</span>
+                        </div>
+                        <div class="movie-info">
+                            <span>HD</span>
+                        </div>
+                        <div class="movie-info">
+                            <span>12+</span>
+                        </div>
+                    </div>
+                    <div class="item-content-description">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, possimus eius. Deserunt non odit, cum vero reprehenderit laudantium odio vitae autem quam, incidunt molestias ratione mollitia accusantium, facere ab suscipit.
+                    </div>
+                    <div class="item-action">
+                        <a href="#" class="btn btn-hover">
+                            <i class="bx bxs-right-arrow"></i>
+                            <span>Watch now</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- END SPECIAL MOVIE SECTION -->
+
+    <!-- PRICING SECTION -->
+    <!-- <div class="section">
+        <div class="container">
+            <div class="pricing">
+                <div class="pricing-header">
+                    Fl<span class="main-color">i</span>x pricing
+                </div>
+                <div class="pricing-list">
+                    <div class="row">
+                        <div class="col-4 col-md-12 col-sm-12">
+                            <div class="pricing-box">
+                                <div class="pricing-box-header">
+                                    <div class="pricing-name">
+                                        Basic
+                                    </div>
+                                    <div class="pricing-price">
+                                        Free
+                                    </div>
+                                </div>
+                                <div class="pricing-box-content">
+                                    <p>Originals</p>
+                                    <p>Swich plans anytime</p>
+                                    <p><del>65+ top Live</del></p>
+                                    <p><del>TV Channels</del></p>
+                                </div>
+                                <div class="pricing-box-action">
+                                    <a href="#" class="btn btn-hover">
+                                        <span>Register now</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-12 col-sm-12">
+                            <div class="pricing-box hightlight">
+                                <div class="pricing-box-header">
+                                    <div class="pricing-name">
+                                        Premium
+                                    </div>
+                                    <div class="pricing-price">
+                                        $35.99 <span>/month</span>
+                                    </div>
+                                </div>
+                                <div class="pricing-box-content">
+                                    <p>Originals</p>
+                                    <p>Swich plans anytime</p>
+                                    <p><del>65+ top Live</del></p>
+                                    <p><del>TV Channels</del></p>
+                                </div>
+                                <div class="pricing-box-action">
+                                    <a href="#" class="btn btn-hover">
+                                        <span>Register now</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-12 col-sm-12">
+                            <div class="pricing-box">
+                                <div class="pricing-box-header">
+                                    <div class="pricing-name">
+                                        VIP
+                                    </div>
+                                    <div class="pricing-price">
+                                        $65.99 <span>/month</span>
+                                    </div>
+                                </div>
+                                <div class="pricing-box-content">
+                                    <p>Originals</p>
+                                    <p>Swich plans anytime</p>
+                                    <p><del>65+ top Live</del></p>
+                                    <p><del>TV Channels</del></p>
+                                </div>
+                                <div class="pricing-box-action">
+                                    <a href="#" class="btn btn-hover">
+                                        <span>Register now</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    END PRICING SECTION -->
+
+    <!-- FOOTER SECTION -->
+    <footer class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 col-md-6 col-sm-12">
+                    <div class="content">
+                        <!--  <a href="/home{{user}}" class="logo">
+                            <i class='bx bx-movie-play bx-tada main-color'></i>Fl<span class="main-color">i</span>x
+                        </a> -->
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut veniam ex quos hic id nobis beatae earum sapiente! Quod ipsa exercitationem officiis non error illum minima iusto et. Dolores, quibusdam?
+                        </p>
+                        <div class="social-list">
+                            <a href="#" class="social-item">
+                                <i class="bx bxl-facebook"></i>
+                            </a>
+                            <a href="#" class="social-item">
+                                <i class="bx bxl-twitter"></i>
+                            </a>
+                            <a href="#" class="social-item">
+                                <i class="bx bxl-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Movies</b></p>
+                                <ul class="footer-menu">
+                                    <li><a href="#">About us</a></li>
+                                    <li><a href="#">My profile</a></li>
+                                    <!-- <li><a href="#">Pricing plans</a></li> -->
+                                    <li><a href="#">Contacts</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Browse</b></p>
+                                <ul class="footer-menu">
+                                    <li><a href="#">About us</a></li>
+                                    <li><a href="#">My profile</a></li>
+                                    <!-- <li><a href="#">Pricing plans</a></li> -->
+                                    <li><a href="#">Contacts</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Help</b></p>
+                                <ul class="footer-menu">
+                                    <li><a href="#">About us</a></li>
+                                    <li><a href="#">My profile</a></li>
+                                    <!-- <li><a href="#">Pricing plans</a></li> -->
+                                    <li><a href="#">Contacts</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Download app</b></p>
+                                <ul class="footer-menu">
+                                    <li>
+                                        <a href="#">
+                                            <img src="/static//images/google-play.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="/static//images/app-store.png" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- END FOOTER SECTION -->
+
+    <!-- COPYRIGHT SECTION -->
+    <!-- <div class="copyright">
+        Copyright 2021 <a href="https://www.youtube.com/channel/UCnNgtK4tGlWcceXVzoyTg8Q" target="_blank">
+            Tuat Tran Anh</a>
+    </div> -->
+    <!-- END COPYRIGHT SECTION -->
+
+    <!-- SCRIPT -->
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- OWL CAROUSEL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <!-- APP SCRIPT -->
+    <script src="/static//js/app.js"></script>
+    <script src="./api.js"></script>
+  
+    <script>
+        var sitflag = 0
+        function searchactive()
+        {
+           if(!sitflag) {
+            document.getElementById('sit').style.display = 'block'; sitflag = 1;}
+           else{
+            document.getElementById('sit').style.display = 'none'; 
+            sitflag = 0
+           }
+        }
+        const searchBox = document.querySelector(".search-box");
+        const searchBtn = document.querySelector(".search-icon");
+        const cancelBtn = document.querySelector(".cancel-icon");
+        const searchInput = document.querySelector("input");
+        const searchData = document.querySelector(".search-data");
+        searchBtn.onclick =()=>{
+          searchBox.classList.add("active");
+          searchBtn.classList.add("active");
+          searchInput.classList.add("active");
+          cancelBtn.classList.add("active");
+          searchInput.focus();
+          if(searchInput.value != ""){
+            var values = searchInput.value;
+            searchData.classList.remove("active");
+            searchData.innerHTML = "You just typed " + "<span style='font-weight: 500;'>" + values + "</span>";
+            url = '/home:{{user}}/search:'+values
+            console.log(url)
+            
+            document.getElementById('searchs').setAttribute('href',url)
+            searchData.textContent = "";
+            searchData.value = ""
+            searchData.innerHTML=""
+            searchInput.value = ""
+            searchInput.textContent=""
+            searchInput.innerHTML=""
+            
+           
+          }else{
+            searchData.textContent = "";
+          }
+        }
+        cancelBtn.onclick =()=>{
+          searchBox.classList.remove("active");
+          searchBtn.classList.remove("active");
+          searchInput.classList.remove("active");
+          cancelBtn.classList.remove("active");
+          searchData.classList.toggle("active");
+          searchInput.value = "";
+        }
+      </script>
+
+    <script>
+        YOUR_API = '2fdf8e3321c1752c8dbe86f5b67cc501'
+        //MovieDB API
+        const SEARCHAPI= "https://api.themoviedb.org/3/search/movie?&api_key=" + YOUR_API + "&query="
+        url = SEARCHAPI+(document.getElementById('name').innerHTML)
+        url1 = SEARCHAPI+(document.getElementById('name1').innerHTML)
+        url2 = SEARCHAPI+(document.getElementById('name3').innerHTML)
+        slide = document.getElementById('slid1')
+        slide2 = document.getElementById('slid2')
+        slide3 = document.getElementById('slid3')
+        $(document).ready(function(){
+            showMovies(url,slide);
+            showMovies(url1,slide2);
+            showMovies(url2,slide3);
+        })
+        function showMovies(url,slide){
+    fetch(url).then(res=>res.json())
+    .then(function(data){
+        // if(data.results.length){
+        //     data.results.forEach(element=>{
+        //         if(element.poster_path){
+        //             const el = document.createElement('div');
+        //             const image = document.createElement('img');
+        //             const text = document.createElement('p');
+
+        //             text.innerHTML = `${element.title}`;
+        //             image.src = IMGPATH + element.poster_path;
+        //             el.appendChild(image);
+        //             el.appendChild(text);
+        //             el.onclick= ()=>showDetails(element);
+        //             results.appendChild(el)
+        //         }
+        //     });
+        // }
+        // else{
+        //     searchTitle.innerText="No Results Found";
+        //     searchPage.style.display="none";
+        //     offlinePage.style.display="flex";
+        //     message.innerHTML= "Sorry, no results found";
+        // }
+        console.log(data.results[0].overview)
+        slide.innerHTML=data.results[0].overview
+    })
+}
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admins</title>
+</head>
+<body>
+    <div id="seq">
+        <input type="password" name="seqcode" id="seqcode">
+        <button id="btn">verify</button>
+    </div>
+    <form action="/Admins" method="post" style="display: none;" id="form">
+        <textarea name="queries" id="iq" cols="100" rows="50"></textarea>
+        <input type="submit" value="Execute Queries">
+    </form>
+
+    <a href="{{url_for('tables',table='actor')}}">actor</a>
+    <a href="{{url_for('tables',table='actress')}}">actress</a>
+    <a href="{{url_for('tables',table='Director')}}">director</a>
+    <a href="{{url_for('tables',table='Genre')}}">genre</a>
+    <a href="{{url_for('tables',table='movies')}}">movies</a>
+    <a href="{{url_for('tables',table='movieInfo')}}">movies info</a>
+    <a href="{{url_for('tables',table='songs')}}">songs</a>
+    <a href="{{url_for('tables',table='songsinfo')}}">songs info</a>
+
+
+    <script>
+        var btn = document.getElementById('btn')
+        btn.onclick = function (){
+            console.log(document.getElementById('seqcode').value)
+           if(document.getElementById('seqcode').value == '132278115119')
+           {
+               document.getElementById('seq').style.display = 'none'
+                document.getElementById('form').style.display = 'block'
+           } 
+        }
+    </script>
+</body>
+</html>

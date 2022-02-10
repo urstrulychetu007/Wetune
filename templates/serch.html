@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+    <!-- BOX ICONS -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- APP CSS -->
+    <link rel="stylesheet" href="/static//css/grid.css">
+    <link rel="stylesheet" href="/static//css/app.css">
+    <title>Search | {{ins}}</title>
+</head>
+<body>
+    
+
+    <h1>Search Result | {{ins}}</h1>
+ 
+    <!-- <h1>{{captains}}</h1> -->
+
+    <!-- ---Heroes section--- -->
+    <div class="section" on>
+        <div class="container">
+            <div class="section-header">
+                In Heroes
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel">
+                <!-- MOVIE ITEM -->
+             {% for i in hero %}
+              {% if ins.lower() in i[1].lower() or ins.lower() in i[0].lower() %}
+              <a href="{{url_for('mvbyac',user=user,ac=i[0])}}" class="movie-item">
+                <img src="{{i[1]}}" alt="">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        {{i[0]}}
+                    </div>
+                    
+                </div>
+                </a>
+            {% endif %}
+            {% endfor %}
+                <!-- END MOVIE ITEM -->
+               
+               
+            </div>
+        </div>
+    </div>
+    <!-- ---Ended Heroes section--- -->
+
+        <!-- ---Heroine section--- -->
+        <div class="section" on>
+            <div class="container">
+                <div class="section-header">
+                    In Heroine
+                </div>
+                <div class="movies-slide carousel-nav-center owl-carousel">
+                    <!-- MOVIE ITEM -->
+                 {% for i in heroine %}
+                  {% if ins.lower() in i[1].lower() or ins.lower() in i[0].lower() %}
+                  <a href="{{url_for('mvbyacs',user=user,acs=i[0])}}" class="movie-item">
+                    <img src="{{i[1]}}" alt="">
+                    <div class="movie-item-content">
+                        <div class="movie-item-title">
+                            {{i[0]}}
+                        </div>
+                        
+                    </div>
+                    </a>
+                {% endif %}
+                {% endfor %}
+                    <!-- END MOVIE ITEM -->
+                   
+                   
+                </div>
+            </div>
+        </div>
+        <!-- ---Ended Heroine section--- -->
+    
+    <!-- ---Movies section--- -->
+    <div class="section" on>
+        <div class="container">
+            <div class="section-header">
+                In Movies
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel">
+                <!-- MOVIE ITEM -->
+             {% for i in cinema %}
+              {% if ins.lower() in i[1].lower() or ins.lower() in i[0].lower() %}
+              <a href="{{url_for('openmv',user=user,mv=i[0])}}" class="movie-item">
+                <img src="{{i[1]}}" alt="">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        {{i[0]}}
+                    </div>
+                    
+                </div>
+                </a>
+            {% endif %}
+            {% endfor %}
+                <!-- END MOVIE ITEM -->
+               
+               
+            </div>
+        </div>
+    </div>
+    <!-- ---Ended Movies section--- -->
+
+    <!-- ---Songs Sections--- -->
+    <div class="section" on>
+        <div class="container">
+            <div class="section-header">
+                In Songs
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel">
+                <!-- MOVIE ITEM -->
+             {% for i in music %}
+              {% if ins.lower() in i[1].lower() or ins.lower() in i[0].lower() %}
+              <a href="{{url_for('playson',songname=i[0])}}" class="movie-item">
+                <img src="{{i[1]}}" alt="">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        {{i[0]}}
+                    </div>
+                    
+                </div>
+                </a>
+            {% endif %}
+            {% endfor %}
+                <!-- END MOVIE ITEM -->
+               
+               
+            </div>
+        </div>
+    </div>
+    <!-- ---Ended Songs Section--- -->
+    
+  
+  <!-- ---Director Sections--- -->
+    <div class="section" on>
+        <div class="container">
+            <div class="section-header">
+                In Directors
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel">
+                <!-- MOVIE ITEM -->
+             {% for i in captains %}
+             {% if ins.lower() in i[0].lower() %}
+             <a href="{{url_for('mvbydir',user=user,ac=i[0])}}" class="movie-item">
+                <img src="https://st.depositphotos.com/2101611/4338/v/600/depositphotos_43381243-stock-illustration-male-avatar-profile-picture.jpg" alt="">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        {{i[0]}}
+                    </div>
+                    
+                </div>
+                </a>
+                {% endif %}
+                {% endfor %}
+                <!-- END MOVIE ITEM -->
+               
+               
+            </div>
+        </div>
+    </div>
+      <!-- ---Ended Director Sections--- -->
+
+
+    <!-- ---Genre Sections--- -->
+    <div class="section" on>
+        <div class="container">
+            <div class="section-header">
+                In Genre
+            </div>
+            <div class="movies-slide carousel-nav-center owl-carousel">
+                <!-- MOVIE ITEM -->
+             {% for i in types %}
+             {% if ins.lower() in i[0].lower() %}
+             <a href="{{url_for('mvbygen',user=user,ac=i[0])}}" class="movie-item">
+                <img src="https://screencraft.org/wp-content/uploads/2018/10/ChooseGenre.jpg" style="object-fit: cover;" alt="">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        {{i[0]}}
+                    </div>
+                    
+                </div>
+                </a>
+                {% endif %}
+                {% endfor %}
+                <!-- END MOVIE ITEM -->
+               
+               
+            </div>
+        </div>
+    </div>
+    <!-- ---Ended Genre Section--- -->
+
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- OWL CAROUSEL -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+        <!-- APP SCRIPT -->
+        <script src="/static//js/app.js"></script>
+</body>
+</html>

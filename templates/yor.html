@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600&display=swap');
+         *
+         {
+            margin: 0;
+         padding: 0;
+            box-sizing: border-box;
+         }
+          body{
+        min-height: 100vh;
+         font-family: Poppins,sans-serif;
+         background: black;
+         color: dodgerblue;
+         
+         /* overflow: hidden;overflow: auto; */
+     }
+
+     a:hover{
+         text-decoration: none;
+     }
+     .main
+     {
+         position: absolute;
+         justify-content: center;
+         align-items: center;
+         margin-top: 10px;
+         left: 25%;
+         width: 100vh;
+         gap: 10px;
+         display: grid;
+         grid-template-columns: repeat(4,1fr);
+         
+         
+     }
+     .maincard
+     {
+        height: 250px;
+         width: 360px;
+         margin-right: 1%;
+         margin-bottom: 10%;
+         background-color: transparent;
+         box-shadow: -4px 4px 5px 0 #000;
+         transition: 0.8s;
+         border-radius: 10px;
+     }
+    .main img
+     {
+         height: 100%;
+         width: 100%;
+         border-radius: 10px;
+         /* object-position: center; */
+         object-fit: fill;
+         cursor: pointer;
+
+     }
+    
+
+    .maincard:hover
+    {
+        transform: translateY(-10px);
+        box-shadow: -4px 4px 5px 0 #000;
+
+         box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3),0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+       h5
+      {
+        font-weight: 400;
+        font-size: medium;
+        padding-top: 2%;
+        color: silver;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      h2
+      {
+          text-transform: uppercase;
+          margin-top:2% ;
+          margin-left: 2%;
+          margin-bottom: 2%;
+      }
+
+      @media only screen and (max-width:700px)
+      {
+        .main
+        {
+            grid-template-columns: repeat(2,1fr);
+            width: 30vh;
+            gap: 5px;
+        }
+
+        .maincard
+        {
+            height: 100px;
+           width: 150px;
+         
+        }
+        h5
+        {
+            font-size: x-small;
+        }
+
+      }
+    </style>
+    <title>{{yofr}} Movies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+    <!-- BOX ICONS -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- APP CSS -->
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="/static//css/grid.css">
+    <link rel="stylesheet" href="/static//css/app.css">
+</head>
+<body>
+    <div class="nav-wrapper">
+        <div class="container">
+            <div class="nav">
+                <a href="/home:{{user}}" class="logo">
+                    <i class='bx bx-movie-play bx-tada'></i><span class="main-color">WETUNE</span>
+                </a>
+               
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Sort by</a>
+                        <ul>
+                            <li><a href="#sort-telugu" onclick="changeT()">Telugu</a></li>
+                        <li><a href="#sort-kannada" onclick="changeK()">Kannada</a></li>
+                        <li><a href="#sort-rating" onclick="changeR()">Rating</a></li>
+                        </ul>
+                    </li>
+                   
+                    <li><a href="#">Playlist</a></li>
+                    <li><a href="#">Watch later</a></li>
+                    <li><a href="#" onclick="searchactive()">Search</a></li>
+                    <li><a href="{{url_for('signout',user=user)}}">signout</a></li>
+                    <li>
+                        <a href="#" class="btn btn-hover">
+                            <span>{{user}}</span>
+                        </a>
+                    </li>
+                </ul>
+              
+
+              
+
+                <!-- MOBILE MENU TOGGLE -->
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <div class="hamburger"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 style="color: dodgerblue;">Stream Movies of <br> {{yofr}}</h2>
+    
+    <div class="main" id="main1" style="display: grid;">
+        {%for movies in lists%}
+           <div class="maincard">
+            <a href="{{url_for('openmv',user=user,mv=movies[0])}}">
+            <img src="{{movies[1]}}" alt="">
+            </a>
+<h5>{{movies[0]}}</h5> 
+           </div>
+        {% endfor %}
+    </div>
+    
+    <div class="main" id="telugu1" style="display: none;">
+        {%for movies in tlist%}
+           <div class="maincard">
+            <a href="{{url_for('openmv',user=user,mv=movies[0])}}">
+            <img src="{{movies[1]}}" alt="">
+            </a>
+<h5>{{movies[0]}}</h5> 
+           </div>
+        {% endfor %}
+    </div>
+    
+    <div class="main" id="kannada1" style="display: none;">
+        {%for movies in klist%}
+           <div class="maincard">
+            <a href="{{url_for('openmv',user=user,mv=movies[0])}}">
+            <img src="{{movies[1]}}" alt="">
+            </a>
+<h5>{{movies[0]}}</h5> 
+           </div>
+        {% endfor %}
+    </div>
+    
+    <div class="main" id="rating1" style="display: none;">
+        {%for movies in rlist%}
+           <div class="maincard">
+            <a href="{{url_for('openmv',user=user,mv=movies[0])}}">
+            <img src="{{movies[1]}}" alt="">
+            </a>
+            <h5>{{movies[0]}}</h5> 
+           </div>
+        {% endfor %}
+    </div>
+    <script>
+        var sitflag = 0
+        function searchactive()
+        {
+           if(!sitflag) {
+            document.getElementById('sit').style.display = 'block'; sitflag = 1;}
+           else{
+            document.getElementById('sit').style.display = 'none'; 
+            sitflag = 0
+           }
+        }
+        const searchBox = document.querySelector(".search-box");
+        const searchBtn = document.querySelector(".search-icon");
+        const cancelBtn = document.querySelector(".cancel-icon");
+        const searchInput = document.querySelector("input");
+        const searchData = document.querySelector(".search-data");
+        searchBtn.onclick =()=>{
+          searchBox.classList.add("active");
+          searchBtn.classList.add("active");
+          searchInput.classList.add("active");
+          cancelBtn.classList.add("active");
+          searchInput.focus();
+          if(searchInput.value != ""){
+            var values = searchInput.value;
+            searchData.classList.remove("active");
+            searchData.innerHTML = "You just typed " + "<span style='font-weight: 500;'>" + values + "</span>";
+            url = '/home:{{user}}/search:'+values
+            console.log(url)
+            
+            document.getElementById('searchs').setAttribute('href',url)
+            searchData.textContent = "";
+            searchData.value = ""
+            searchData.innerHTML=""
+            searchInput.value = ""
+            searchInput.textContent=""
+            searchInput.innerHTML=""
+            
+           
+          }else{
+            searchData.textContent = "";
+          }
+        }
+        cancelBtn.onclick =()=>{
+          searchBox.classList.remove("active");
+          searchBtn.classList.remove("active");
+          searchInput.classList.remove("active");
+          cancelBtn.classList.remove("active");
+          searchData.classList.toggle("active");
+          searchInput.value = "";
+        }
+      </script>
+
+    <script>
+      
+        function changeT()
+        {
+            document.getElementById('telugu1').style.display = 'grid'
+            document.getElementById('kannada1').style.display = 'none';
+            document.getElementById('main1').style.display = 'none';
+            document.getElementById('rating1').style.display = 'none';
+
+        }
+        function changeK()
+        {
+            document.getElementById('telugu1').style.display = 'none'
+            document.getElementById('kannada1').style.display = 'grid';
+            document.getElementById('main1').style.display = 'none';
+            document.getElementById('rating1').style.display = 'none';
+
+
+        }
+        function changeR()
+        {
+            document.getElementById('telugu1').style.display = 'none'
+            document.getElementById('kannada1').style.display = 'none';
+            document.getElementById('main1').style.display = 'none';
+            document.getElementById('rating1').style.display = 'grid';
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- OWL CAROUSEL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <!-- APP SCRIPT -->
+    <script src="/static//js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+</body>
+</html>

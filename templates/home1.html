@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600&display=swap');
+     body{
+         margin: 0;
+         padding: 0;
+         font-family: Poppins,sans-serif;
+         background: #1e1e1e;
+         color: dodgerblue;
+     }
+     img
+     {
+         height: 240px;
+         width: 360px;
+         
+         cursor: pointer;
+
+     }
+     .menu-toggle
+     {
+         position: fixed;
+         right: 15px;
+         top: 15px;
+         width: 50px;
+         height: 35px;
+         text-align: center;
+         align-items: center;
+         color: white;
+         background: #1e1e1e;
+         line-height: 50px;
+         z-index: 999;
+     }
+      
+     .menu-toggle:focus,.menu-toggle:hover
+     {
+         color: #fff;
+     } 
+     .menu-toggle:hover
+     {
+         background-color: #343a40;
+     }
+
+
+
+     /* -----Sidebar Wrapper------ */
+
+     #sidebar-wrapper
+     {
+         position: fixed;
+         z-index: 2;
+         right: 0;
+         width: 250px;
+         height: 100%;
+         transition: all 0.4s ease 0s;
+         transform: translateX(250px);
+         background: #343a40;
+         border-left: 1px solid rgba(255, 255, 255, 0.1);
+     }
+
+     .sidebar-nav
+     {
+         position: absolute;
+         top: 0;
+         margin: 0;
+         padding: 0;width: 250px;
+         list-style: none;
+     }
+
+     .sidebar-nav li.sidebar-nav-item a
+     {
+        display: block;
+        text-decoration: none;
+        color: white;
+        padding: 15px;
+     }
+     .sidebar-nav li a:hover
+     {
+         text-decoration: none;
+         background-color: dodgerblue;
+         color: white;
+     }
+
+     .sidebar-nav li a:active,.sidebar-nav li a:focus
+     {
+         text-decoration: none;
+     }
+     .sidebar-nav > .sidebar-brand
+     {
+         font-size: 1.2rem;
+         background: dodgerblue;
+         height: 80px;
+         line-height: 50px;
+         padding-top: 15px;
+         padding-left: 15px;
+         padding-bottom: 15px;
+   
+     }
+
+     .sidebar-nav > .sidebar-brand a{
+        color: white;
+     }
+
+     .sidebar-nav > .sidebar-brand a:hover
+     {
+         background: none;
+         color: white;
+     }
+
+     #sidebar-wrapper.active
+     {
+         right: 250px;
+         width: 250px;
+         transition: all 0.4s ease 0s;
+     }
+     .swiper-container {
+        width: 100%;
+        height: 100%;
+
+      }
+
+      .swiper-slide {
+        /* text-align: center; */
+        font-size: 18px;
+        background: transparent;
+        cursor: pointer;
+         box-shadow: -4px 4px 5px 0 #000;
+         border-radius: 10px;
+         transition: 0.8s;
+         left: 2%;
+       
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit:fill;
+        margin-right: 1%;
+         /* margin-bottom: 10%; */
+         border-radius: 10px;
+        
+      }
+      .swiper-slide:hover
+      {
+        transform: translateY(-25px);
+         box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3),0 15px 12px rgba(0, 0, 0, 0.22);
+      }
+      .swiper-slide {
+        
+        width: 200px;
+        height:200px;
+      }
+/* 
+      .swiper-slide:nth-child(2n) {
+        width: 40%;
+      }
+
+      .swiper-slide:nth-child(3n) {
+        width: 20%;
+      } */
+      h3
+      {
+        font-weight: 400;
+        font-size: larger;
+        padding-top: 2%;
+        margin-bottom: 2%;
+        color: silver;
+        text-transform: uppercase;
+      }
+      h5
+      {
+        font-weight: 400;
+        font-size: medium;
+        /* padding-top: 2%; */
+        color: silver;
+      }
+
+      .swiper-container1 {
+        width: 100%;
+        height: 100%;
+      }
+
+      .oops {
+        text-align: center;
+        font-size: 18px;
+        background: transparent;
+        width: 640px;
+        height: 340px;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .oops .hi {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+      }
+
+      @media only screen and (max-width:700px)
+      {
+          .swiper-slide
+          {
+              width: 140px;
+              height: 100px;
+          }
+          .oops{
+              width: 360px;
+              height: 200px;
+              left: 2%;
+          }
+
+      }
+
+    </style>
+    <title>Wetune - Happiness Starts Here🍿🍿🥤</title>
+</head>
+<body>
+
+    <h2>Welcome  Back! {{user}}</h2>
+    <br>
+
+    <a href="/" class="menu-toggle rounded">
+        <i class='bx bx-menu bx-md'></i>
+    </a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#page-top" class="js-scroll-trigger">Wetune</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a href="#actors" class="js-scroll-trigger">Actors</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a href="#actress" class="js-scroll-trigger">Actress</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a href="#year of release" class="js-scroll-trigger">Year of Release</a>
+            </li>
+        </ul>
+    </nav>
+
+
+   
+    <section id="actors">
+        <div class="swiper-container mySwiper1">
+            <div class="swiper-wrapper">
+              <!-- <div class="swiper-slide1"></div> -->
+              <div class="swiper-slide oops"><img class="hi" src="{{list[0][1]}}" alt=""></div>          
+              <div class="swiper-slide oops"><img class="hi" src="{{list1[1][1]}}" alt=""></div>         
+              {%for movies in list2%}
+                 {%if movies[0]=='Saaho'%}
+                 <div class="swiper-slide oops"><img class="hi" src="{{movies[1]}}" alt=""></div>
+                 {%endif%}
+                 {%endfor%}                 
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        <div class="swiper-container mySwiper">
+            <h3>Movies by year</h3>
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" ><a href="{{url_for('mvbyyear',yor=2017)}}"><img src="{{url_for('static',filename='/img/1.png')}}" alt=""></a></div>
+              <div class="swiper-slide" ><a href="{{url_for('mvbyyear',yor=2018)}}"><img src="{{url_for('static',filename='/img/2.png')}}" alt=""></a></div>
+              <div class="swiper-slide" ><a href="{{url_for('mvbyyear',yor=2019)}}"><img src="{{url_for('static',filename='/img/3.png')}}" alt=""></a></div>
+              <div class="swiper-slide" ><a href="{{url_for('mvbyyear',yor=2020)}}"><img src="{{url_for('static',filename='/img/4.png')}}" alt=""></a></div>
+              <div class="swiper-slide" ><a href="{{url_for('mvbyyear',yor=2021)}}"><img src="{{url_for('static',filename='/img/5.png')}}" alt=""></a></div>
+            </div> 
+            <!-- <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div> -->
+        </div>     
+    </section>
+    <section id="actress">
+        <div class="swiper-container mySwiper">
+            <h3>2021</h3>
+            <div class="swiper-wrapper">
+              {% for movies in list%}
+              <div class="swiper-slide"><img src="{{movies[1]}}" alt=""><h5>{{movies[0]}}</h5></div>
+              
+              {% endfor %}
+            </div>
+            <!-- <div class="swiper-pagination"></div> -->
+          </div>
+    </section>
+    <section id="year of release">
+        <div class="swiper-container mySwiper">
+            <h3>2020</h3>
+            <div class="swiper-wrapper">
+              {% for movies in list1%}
+              <div class="swiper-slide"><img src="{{movies[1]}}" alt=""><h5>{{movies[0]}}</h5></div>
+              {% endfor %}
+            </div>
+            <!-- <div class="swiper-pagination"></div> -->
+          </div>
+        <div class="swiper-container mySwiper">
+            <h3>2019</h3>
+            <div class="swiper-wrapper">
+              {% for movies in list2%}
+              <div class="swiper-slide"><img src="{{movies[1]}}" alt=""><h5>{{movies[0]}}</h5></div>
+              {% endfor %}
+            </div>
+            <!-- <div class="swiper-pagination"></div> -->
+          </div>
+    </section>
+    <br>
+  
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- <script src="https://unpkg.com/swiper/swiper-bundle.js"></script> -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+
+
+
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: "auto",
+        // centeredSlides: true,
+        spaceBetween: 30,
+       
+      });
+    </script>
+    <script>
+       var swiper = new Swiper(".mySwiper1", {
+        spaceBetween: 5,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+        
+    </script>
+    <script>
+       ( function($)
+        {
+            ("use strict");
+            $(".menu-toggle").click(function(e){
+                e.preventDefault()
+                $("#sidebar-wrapper").toggleClass("active")
+                $(".menu-toggle > .bx-menu , .menu-toggle > .bx-x").toggleClass("bx-menu bx-x")
+                $(this).toggleClass("active")
+            })
+        })(jQuery)
+        
+    </script>
+    
+</body>
+
+
+</html>
+
+
+<!-- https://i0.wp.com/themotobuddy.com/wp-content/uploads/2018/12/2019-1.jpg?fit=360%2C240&ssl=1 -->

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600&display=swap');
+         *
+         {
+            margin: 0;
+         padding: 0;
+            box-sizing: border-box;
+         }
+          body{
+        min-height: 100vh;
+         font-family: Poppins,sans-serif;
+         background: #1e1e1e;
+         color: dodgerblue;
+        
+         overflow-x: hidden;
+     }
+
+     .main
+     {
+         position: absolute;
+         justify-content: center;
+         align-items: center;
+         margin-top: 10px;
+         left: 25%;
+         width: 100vh;
+         gap: 10px;
+         display: grid;
+         grid-template-columns: repeat(4,1fr);
+         
+         
+     }
+     .maincard
+     {
+        height: 250px;
+         width: 360px;
+         margin-right: 1%;
+         margin-bottom: 10%;
+         background-color: transparent;
+         box-shadow: -4px 4px 5px 0 #000;
+         transition: 0.8s;
+         border-radius: 10px;
+     }
+    .main img
+     {
+         height: 100%;
+         width: 100%;
+         border-radius: 10px;
+         /* object-position: center; */
+         object-fit: fill;
+         cursor: pointer;
+
+     }
+    
+
+    .maincard:hover
+    {
+        transform: translateY(-10px);
+         box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3),0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+       h5
+      {
+        font-weight: 400;
+        font-size: medium;
+        padding-top: 2%;
+        color: silver;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      h2
+      {
+          text-transform: uppercase;
+          margin-top:2% ;
+          margin-left: 2%;
+          margin-bottom: 2%;
+      }
+
+      @media only screen and (max-width:700px)
+      {
+        .main
+        {
+            grid-template-columns: repeat(2,1fr);
+            width: 30vh;
+            gap: 5px;
+        }
+
+        .maincard
+        {
+            height: 100px;
+           width: 150px;
+         
+        }
+        h5
+        {
+            font-size: x-small;
+        }
+
+      }
+    </style>
+    <title>{{yofr}}</title>
+</head>
+<body>
+    <h2>Stream Movies of <br> {{yofr}}</h2>
+    
+    <div class="main">
+        {%for movies in lists%}
+           <div class="maincard">
+           {% if yofr == 'actor' %}
+           <a href="{{url_for('mvbyac',user=user,ac=movies[0])}}">
+            <img src="{{movies[1]}}" alt="">
+        </a>
+            {% elif yofr == 'actress' %}
+            <a href="{{url_for('mvbyacs',user=user,acs=movies[0])}}">
+                <img src="{{movies[1]}}" alt="">
+            </a>
+             {% else %} 
+             <a href="{{url_for('mvbygen',user=user,genre=movies[0])}}">     
+            <img src="https://screencraft.org/wp-content/uploads/2018/10/ChooseGenre.jpg" alt="">
+            </a>
+            {% endif %}
+<h5>{{movies[0]}}</h5> 
+           </div>
+        {% endfor %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+</body>
+</html>
