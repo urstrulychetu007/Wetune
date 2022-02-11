@@ -157,6 +157,7 @@ def welcome(user):
 
 @app.route("/register",methods=['POST','GET'])
 def register():
+    return redirect(url_for('login'))
     if request.method == 'POST' :
         email = request.form['email']
         mobile = request.form['Mobile']
